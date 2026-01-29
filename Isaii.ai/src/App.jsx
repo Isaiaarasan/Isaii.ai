@@ -1,23 +1,28 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Services from './components/Services';
-import Products from './components/Products';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import ProductDetails from './pages/ProductDetails';
+import ServicesPage from './pages/ServicesPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
-    <div className="font-sans antialiased bg-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <Services />
-        <Products />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="font-sans antialiased bg-white min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<ProductDetails />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

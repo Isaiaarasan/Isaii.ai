@@ -35,12 +35,45 @@ const Footer = () => {
             {/* Main Footer Content */}
             <div className="max-w-[1400px] mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-gray-800 pb-8">
+                    {/* Logo Section */}
                     <div>
-                        <h2 className="text-6xl md:text-8xl lg:text-[120px] leading-none font-bold text-gray-700 select-none tracking-tighter">
-                            ISAII-AI
+                        <h2
+                            className="
+      text-6xl
+      md:text-8xl
+      lg:text-[140px]
+      leading-none
+      font-bold
+      select-none
+      bg-gradient-to-r
+      from-[#7e2260] 
+      via-[#4a39a8] 
+      to-[#1888a8]
+      bg-clip-text
+      text-transparent
+      tracking-[-0.08em] 
+      drop-shadow-[0_0_20px_rgba(74,57,168,0.5)]
+      transition-all
+      duration-500
+      hover:drop-shadow-[0_0_40px_rgba(24,136,168,0.7)]
+    "
+                        >
+                            ISAII<span className="tracking-[-0.15em]"> - AI</span>
+                            <span className="
+      relative 
+      inline-block 
+      text-[0.45em] 
+      font-black 
+      tracking-tighter 
+      -top-[0.5em] 
+      ml-2
+    ">
+                                AI
+                            </span>
                         </h2>
                     </div>
 
+                    {/* Newsletter Section - Now correctly positioned */}
                     <div className="w-full md:w-auto md:min-w-[400px] mb-4">
                         <h4 className="text-xl font-medium mb-6">Subscribe to Our Newsletter</h4>
                         <div className="flex items-center border-b border-gray-700 py-4">
@@ -56,8 +89,9 @@ const Footer = () => {
                     </div>
                 </div>
 
+                {/* Bottom Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                    <p>Copyright © 2024 - Isaii-AI</p>
+                    <p>Copyright © 2026 - Isaii-AI</p>
                     <div className="flex gap-6 mt-4 md:mt-0">
                         <a href="https://www.instagram.com/isaii.ai?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="hover:text-white transition-colors" target='_blank'><Instagram size={20} /></a>
                         <a href="https://www.linkedin.com/company/isaii/" className="hover:text-white transition-colors" target='_blank'><Linkedin size={20} /></a>

@@ -14,12 +14,12 @@ const Navbar = () => {
     }, []);
 
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-4 bg-white/80 backdrop-blur-md shadow-sm' : 'py-6 bg-transparent'}`}>
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-2 bg-white/80 backdrop-blur-md shadow-sm' : 'py-3 bg-transparent'}`}>
             <div className="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
                 {/* Logo */}
                 <div className="flex items-center gap-2">
-                    <div className="relative h-10 w-32">
-                        <img src="/Isaii withoutBG.png" alt="Isaii" className="h-full w-full object-contain object-left" />
+                    <div className="relative h-16 w-48">
+                        <img src="/image.png" alt="Isaii" className="h-full w-full object-contain object-left" />
                     </div>
                 </div>
 

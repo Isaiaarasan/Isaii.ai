@@ -6,6 +6,9 @@ import 'dotenv/config';
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
 
 // Create a transporter using Ethereal test credentials (or from .env)
 const transporter = nodemailer.createTransport({
@@ -19,6 +22,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post('/send-email', async (req, res) => {
+    console.log("Received request body:", req.body);
     const { name, phone, email, message } = req.body;
 
     try {
@@ -53,11 +57,12 @@ app.post('/send-email', async (req, res) => {
         res.status(200).json({ success: true, message: 'Email sent successfully', messageId: info.messageId });
     } catch (error) {
         console.error("Error sending email:", error);
-        res.status(500).json({ success: false, message: 'Failed to send email' });
+        res.status(500).json({ success: false, message: 'Failed to send email', error: error.message });
     }
 });
 
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`Email Service Configured for User: ${process.env.SMTP_USER}`);
 });

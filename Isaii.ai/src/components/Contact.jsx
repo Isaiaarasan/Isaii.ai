@@ -1,11 +1,48 @@
-import React from 'react';
-import { MessageSquare, Phone, MapPin, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { MessageSquare, Phone, MessageCircle, Send } from 'lucide-react';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState(''); // '', 'sending', 'success', 'error'
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('sending');
+
+        try {
+            const response = await fetch('http://localhost:3000/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', phone: '', email: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setStatus('error');
+        }
+    };
+
     return (
         <div className="bg-white min-h-screen pb-20">
             {/* Header Section */}
-            <div className="max-w-[1400px] mx-auto px-6 pt-16 pb-16 text-center">
+            <div className="max-w-[1400px] mx-auto px-6 pt-4 pb-8 text-center">
                 <div className="inline-block px-4 py-1.5 rounded-full border border-gray-200 bg-white shadow-sm mb-6">
                     <span className="text-sm font-bold tracking-tight text-gray-500 uppercase">
                         Isaii Contact
@@ -20,7 +57,7 @@ const Contact = () => {
             </div>
 
             {/* Info Cards */}
-            <div className="max-w-[1400px] mx-auto px-6 mb-24">
+            <div className="max-w-[1400px] mx-auto px-6 mb-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Card 1 */}
                     <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -48,25 +85,25 @@ const Contact = () => {
                             Let's have a chat – there's nothing quite like talking to another person.
                         </p>
                         <div className="pt-6 border-t border-gray-100">
-                            <a href="mailto:hr@isaii.in" className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors">
-                                hr@isaii.in
+                            <a href="tel:+919003672804" className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                                +91 90036 72804
                             </a>
                         </div>
                     </div>
 
                     {/* Card 3 */}
                     <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center mb-6 text-gray-900">
-                            <MapPin size={24} />
+                        <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-6 text-green-600">
+                            <MessageCircle size={24} />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">Address</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">Chat on WhatsApp</h3>
                         <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-                            We'd be delighted to welcome you to our Head Office.
+                            Connect with us directly on WhatsApp for instant replies.
                         </p>
                         <div className="pt-6 border-t border-gray-100">
-                            <span className="text-sm font-semibold text-gray-900">
-                                Coimbatore
-                            </span>
+                            <a href="https://wa.me/919003672804" target="_blank" rel="noreferrer" className="text-sm font-semibold text-gray-900 hover:text-green-600 transition-colors">
+                                Chat on WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -91,12 +128,16 @@ const Contact = () => {
 
                     {/* Right Form */}
                     <div className="lg:w-7/12 bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
-                        <form className="space-y-6">
+                        <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
                                 <input
                                     type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
                                     placeholder="Enter your name"
+                                    required
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
                                 />
                             </div>
@@ -105,6 +146,9 @@ const Contact = () => {
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                                 <input
                                     type="tel"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
                                     placeholder="Enter your phone number"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
                                 />
@@ -114,7 +158,11 @@ const Contact = () => {
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                                 <input
                                     type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     placeholder="Enter your email"
+                                    required
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all bg-white text-gray-800 placeholder-gray-400"
                                 />
                             </div>
@@ -122,18 +170,30 @@ const Contact = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
                                 <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
                                     placeholder="Type your message"
                                     rows={4}
+                                    required
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all bg-white text-gray-800 placeholder-gray-400 resize-none"
                                 ></textarea>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full py-4 bg-[#1e40af] hover:bg-blue-800 text-white font-bold rounded-xl transition-colors uppercase tracking-wide text-sm"
+                                disabled={status === 'sending'}
+                                className="w-full py-4 bg-[#1e40af] hover:bg-blue-800 text-white font-bold rounded-xl transition-colors uppercase tracking-wide text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Submit
+                                {status === 'sending' ? 'Sending...' : 'Submit'}
                             </button>
+
+                            {status === 'success' && (
+                                <p className="text-green-600 text-center text-sm font-medium">Message sent successfully!</p>
+                            )}
+                            {status === 'error' && (
+                                <p className="text-red-600 text-center text-sm font-medium">Failed to send message. Please try again.</p>
+                            )}
                         </form>
                     </div>
                 </div>
